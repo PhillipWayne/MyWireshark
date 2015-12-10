@@ -1,0 +1,17 @@
+C:\Users\OLEG\Documents\Visual Studio 2013\Projects\C#\MyWireshark\Presenter\bin\Debug\Presenter.exe.config
+C:\Users\OLEG\Documents\Visual Studio 2013\Projects\C#\MyWireshark\Presenter\obj\Debug\Presenter.csprojResolveAssemblyReference.cache
+C:\Users\OLEG\Documents\Visual Studio 2013\Projects\C#\MyWireshark\Presenter\obj\Debug\Presenter.Properties.Resources.resources
+C:\Users\OLEG\Documents\Visual Studio 2013\Projects\C#\MyWireshark\Presenter\obj\Debug\Presenter.csproj.GenerateResource.Cache
+C:\Users\OLEG\Documents\Visual Studio 2013\Projects\C#\MyWireshark\Presenter\bin\Debug\Presenter.exe
+C:\Users\OLEG\Documents\Visual Studio 2013\Projects\C#\MyWireshark\Presenter\bin\Debug\Presenter.pdb
+C:\Users\OLEG\Documents\Visual Studio 2013\Projects\C#\MyWireshark\Presenter\bin\Debug\ClassLibrary.dll
+C:\Users\OLEG\Documents\Visual Studio 2013\Projects\C#\MyWireshark\Presenter\bin\Debug\ClassLibrary.pdb
+C:\Users\OLEG\Documents\Visual Studio 2013\Projects\C#\MyWireshark\Presenter\obj\Debug\Presenter.exe
+C:\Users\OLEG\Documents\Visual Studio 2013\Projects\C#\MyWireshark\Presenter\obj\Debug\Presenter.pdb
+C:\Users\OLEG\Documents\Visual Studio 2013\Projects\C#\MyWireshark\Presenter\bin\Debug\GUI1.dll
+C:\Users\OLEG\Documents\Visual Studio 2013\Projects\C#\MyWireshark\Presenter\bin\Debug\GUI1.pdb
+C:\Users\OLEG\Documents\Visual Studio 2013\Projects\C#\MyWireshark\Presenter\bin\Debug\PacketDotNet.dll
+C:\Users\OLEG\Documents\Visual Studio 2013\Projects\C#\MyWireshark\Presenter\bin\Debug\SharpPcap.dll
+C:\Users\OLEG\Documents\Visual Studio 2013\Projects\C#\MyWireshark\Presenter\bin\Debug\PacketDotNet.xml
+C:\Users\OLEG\Documents\Visual Studio 2013\Projects\C#\MyWireshark\Presenter\bin\Debug\SharpPcap.pdb
+C:\Users\OLEG\Documents\Visual Studio 2013\Projects\C#\MyWireshark\Presenter\bin\Debug\SharpPcap.xml

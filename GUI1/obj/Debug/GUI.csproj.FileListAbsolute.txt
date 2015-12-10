@@ -1,0 +1,15 @@
+C:\Users\OLEG\Documents\Visual Studio 2013\Projects\C#\MyWireshark\GUI1\bin\Debug\GUI1.dll
+C:\Users\OLEG\Documents\Visual Studio 2013\Projects\C#\MyWireshark\GUI1\bin\Debug\GUI1.pdb
+C:\Users\OLEG\Documents\Visual Studio 2013\Projects\C#\MyWireshark\GUI1\obj\Debug\GUI.MainForm.resources
+C:\Users\OLEG\Documents\Visual Studio 2013\Projects\C#\MyWireshark\GUI1\obj\Debug\GUI.Properties.Resources.resources
+C:\Users\OLEG\Documents\Visual Studio 2013\Projects\C#\MyWireshark\GUI1\obj\Debug\GUI.csproj.GenerateResource.Cache
+C:\Users\OLEG\Documents\Visual Studio 2013\Projects\C#\MyWireshark\GUI1\obj\Debug\GUI1.dll
+C:\Users\OLEG\Documents\Visual Studio 2013\Projects\C#\MyWireshark\GUI1\obj\Debug\GUI1.pdb
+C:\Users\OLEG\Documents\Visual Studio 2013\Projects\C#\MyWireshark\GUI1\obj\Debug\GUI.csprojResolveAssemblyReference.cache
+C:\Users\OLEG\Documents\Visual Studio 2013\Projects\C#\MyWireshark\GUI1\bin\Debug\PacketDotNet.dll
+C:\Users\OLEG\Documents\Visual Studio 2013\Projects\C#\MyWireshark\GUI1\bin\Debug\SharpPcap.dll
+C:\Users\OLEG\Documents\Visual Studio 2013\Projects\C#\MyWireshark\GUI1\bin\Debug\PacketDotNet.xml
+C:\Users\OLEG\Documents\Visual Studio 2013\Projects\C#\MyWireshark\GUI1\bin\Debug\SharpPcap.pdb
+C:\Users\OLEG\Documents\Visual Studio 2013\Projects\C#\MyWireshark\GUI1\bin\Debug\SharpPcap.xml
+C:\Users\OLEG\Documents\Visual Studio 2013\Projects\C#\MyWireshark\GUI1\bin\Debug\ClassLibrary.dll
+C:\Users\OLEG\Documents\Visual Studio 2013\Projects\C#\MyWireshark\GUI1\bin\Debug\ClassLibrary.pdb

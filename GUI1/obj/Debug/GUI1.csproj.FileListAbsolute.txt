@@ -1,0 +1,8 @@
+C:\Users\OLEG\Documents\Visual Studio 2013\Projects\C#\MyWireshark\GUI1\bin\Debug\GUI1.dll
+C:\Users\OLEG\Documents\Visual Studio 2013\Projects\C#\MyWireshark\GUI1\bin\Debug\GUI1.pdb
+C:\Users\OLEG\Documents\Visual Studio 2013\Projects\C#\MyWireshark\GUI1\obj\Debug\GUI1.csprojResolveAssemblyReference.cache
+C:\Users\OLEG\Documents\Visual Studio 2013\Projects\C#\MyWireshark\GUI1\obj\Debug\GUI1.MainForm.resources
+C:\Users\OLEG\Documents\Visual Studio 2013\Projects\C#\MyWireshark\GUI1\obj\Debug\GUI1.Properties.Resources.resources
+C:\Users\OLEG\Documents\Visual Studio 2013\Projects\C#\MyWireshark\GUI1\obj\Debug\GUI1.csproj.GenerateResource.Cache
+C:\Users\OLEG\Documents\Visual Studio 2013\Projects\C#\MyWireshark\GUI1\obj\Debug\GUI1.dll
+C:\Users\OLEG\Documents\Visual Studio 2013\Projects\C#\MyWireshark\GUI1\obj\Debug\GUI1.pdb
