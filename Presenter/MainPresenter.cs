@@ -112,43 +112,32 @@ namespace Presenter
             _view.SetDataSource(bs);
             LastStatisticsOutput = DateTime.Now;
 
-            // start the background thread
             _backgroundThread = new BackgroundThread(new Thread(BackgroundThreadFunc));
             _backgroundThread.ThreadStop = false;
             _backgroundThread.Start();
 
-            // setup background capture
             arrivalEventHandler = new PacketArrivalEventHandler(device_OnPacketArrival);
             _device.OnPacketArrival += arrivalEventHandler;
             captureStoppedEventHandler = new CaptureStoppedEventHandler(device_OnCaptureStopped);
             _device.OnCaptureStopped += captureStoppedEventHandler;
             _device.Open();
 
-            // force an initial statistics update
             captureStatistics = _device.Statistics;
             UpdateCaptureStatistics();
 
-            // start the background capture
             _device.StartCapture();
-
-            //startStopToolStripButton.Image = global::WinformsExample.Properties.Resources.stop_icon_enabled;
-            //startStopToolStripButton.ToolTipText = "Stop capture";
         }
 
         void device_OnPacketArrival(object sender, CaptureEventArgs e)
         {
-            // print out periodic statistics about this device
-            var Now = DateTime.Now; // cache 'DateTime.Now' for minor reduction in cpu overhead
+            var Now = DateTime.Now;
             var interval = Now - LastStatisticsOutput;
             if (interval > LastStatisticsInterval)
             {
-                //Console.WriteLine("device_OnPacketArrival: " + e.Device.Statistics);
                 captureStatistics = e.Device.Statistics;
                 statisticsUiNeedsUpdate = true;
                 LastStatisticsOutput = Now;
             }
-            // lock QueueLock to prevent multiple threads accessing PacketQueue at
-            // the same time
             lock (QueueLock)
             {
                 _packetQueue.Add(e.Packet);
@@ -157,8 +146,7 @@ namespace Presenter
 
         private void UpdateCaptureStatistics()
         {
-            //captureStatisticsToolStripStatusLabel.Text = string.Format("Received packets: {0}",
-            //                                           captureStatistics.ReceivedPackets);
+            _view.SetPacketsCount(captureStatistics.ReceivedPackets);
         }
 
         void device_OnCaptureStopped(object sender, CaptureStoppedEventStatus status)
@@ -179,14 +167,9 @@ namespace Presenter
                 _device.OnCaptureStopped -= captureStoppedEventHandler;
                 _device = null;
 
-                // ask the background thread to shut down
                 _backgroundThread.ThreadStop = true;
-                // wait for the background thread to terminate
                 _backgroundThread.Join();
 
-                // switch the icon back to the play icon
-                //startStopToolStripButton.Image = global::WinformsExample.Properties.Resources.play_icon_enabled;
-                //startStopToolStripButton.ToolTipText = "Select device to capture from";
             }
         }
 
@@ -213,38 +196,22 @@ namespace Presenter
                 {
                     System.Threading.Thread.Sleep(250);
                 }
-                else // should process the queue
+                else
                 {
                     List<RawCapture> ourQueue;
                     lock (QueueLock)
                     {
-                        // swap queues, giving the capture callback a new one
                         ourQueue = _packetQueue;
                         _packetQueue = new List<RawCapture>();
                     }
 
-                    //Console.WriteLine("BackgroundThread: ourQueue.Count is {0}", ourQueue.Count);
-
                     foreach (var packet in ourQueue)
                     {
-                        // Here is where we can process our packets freely without
-                        // holding off packet capture.
-                        //
-                        // NOTE: If the incoming packet rate is greater than
-                        //       the packet processing rate these queues will grow
-                        //       to enormous sizes. Packets should be dropped in these
-                        //       cases
-
                         var packetWrapper = new PacketWrapper(_packetCount, packet);
 
                         _view.BeginInvoke(packetStrings, packetWrapper);
 
                         _packetCount++;
-
-                        var time = packet.Timeval.Date;
-                        var len = packet.Data.Length;
-                        //Console.WriteLine("BackgroundThread: {0}:{1}:{2},{3} Len={4}",
-                            //time.Hour, time.Minute, time.Second, time.Millisecond, len);
                     }
 
                     _view.BeginInvoke(bs, packetStrings);

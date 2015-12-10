@@ -44,8 +44,7 @@
             this.devicesList = new System.Windows.Forms.ComboBox();
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.toolStripCount = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripPacketsCount = new System.Windows.Forms.ToolStripStatusLabel();
+            this.labelPacketsCount = new System.Windows.Forms.ToolStripStatusLabel();
             this.dataGridView = new System.Windows.Forms.DataGridView();
             this.packetInfoTextBox = new System.Windows.Forms.RichTextBox();
             this.menuMain.SuspendLayout();
@@ -62,7 +61,7 @@
             this.helpToolStripMenuItem});
             this.menuMain.Location = new System.Drawing.Point(0, 0);
             this.menuMain.Name = "menuMain";
-            this.menuMain.Size = new System.Drawing.Size(823, 24);
+            this.menuMain.Size = new System.Drawing.Size(695, 24);
             this.menuMain.TabIndex = 1;
             this.menuMain.Text = "menuStrip2";
             // 
@@ -124,7 +123,7 @@
             this.btnStop});
             this.toolStrip.Location = new System.Drawing.Point(0, 24);
             this.toolStrip.Name = "toolStrip";
-            this.toolStrip.Size = new System.Drawing.Size(823, 27);
+            this.toolStrip.Size = new System.Drawing.Size(695, 27);
             this.toolStrip.TabIndex = 2;
             this.toolStrip.Text = "toolStrip1";
             // 
@@ -167,7 +166,7 @@
             this.devicesList.Location = new System.Drawing.Point(162, 60);
             this.devicesList.MinimumSize = new System.Drawing.Size(50, 0);
             this.devicesList.Name = "devicesList";
-            this.devicesList.Size = new System.Drawing.Size(222, 21);
+            this.devicesList.Size = new System.Drawing.Size(215, 21);
             this.devicesList.TabIndex = 4;
             this.devicesList.SelectedIndexChanged += new System.EventHandler(this.devicesList_SelectedIndexChanged);
             // 
@@ -175,11 +174,10 @@
             // 
             this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripCount,
-            this.toolStripStatusLabel1,
-            this.toolStripPacketsCount});
+            this.labelPacketsCount});
             this.statusStrip.Location = new System.Drawing.Point(0, 412);
             this.statusStrip.Name = "statusStrip";
-            this.statusStrip.Size = new System.Drawing.Size(823, 22);
+            this.statusStrip.Size = new System.Drawing.Size(695, 22);
             this.statusStrip.TabIndex = 5;
             this.statusStrip.Text = "statusStrip1";
             // 
@@ -189,31 +187,28 @@
             this.toolStripCount.Size = new System.Drawing.Size(100, 17);
             this.toolStripCount.Text = "Received packets:";
             // 
-            // toolStripStatusLabel1
+            // labelPacketsCount
             // 
-            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(0, 17);
-            // 
-            // toolStripPacketsCount
-            // 
-            this.toolStripPacketsCount.Name = "toolStripPacketsCount";
-            this.toolStripPacketsCount.Size = new System.Drawing.Size(0, 17);
+            this.labelPacketsCount.Name = "labelPacketsCount";
+            this.labelPacketsCount.Size = new System.Drawing.Size(0, 17);
             // 
             // dataGridView
             // 
             this.dataGridView.AllowUserToAddRows = false;
             this.dataGridView.AllowUserToDeleteRows = false;
+            this.dataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView.Location = new System.Drawing.Point(0, 87);
+            this.dataGridView.Location = new System.Drawing.Point(23, 87);
             this.dataGridView.Name = "dataGridView";
-            this.dataGridView.Size = new System.Drawing.Size(823, 104);
+            this.dataGridView.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.dataGridView.Size = new System.Drawing.Size(643, 159);
             this.dataGridView.TabIndex = 0;
             // 
             // packetInfoTextBox
             // 
-            this.packetInfoTextBox.Location = new System.Drawing.Point(0, 216);
+            this.packetInfoTextBox.Location = new System.Drawing.Point(23, 252);
             this.packetInfoTextBox.Name = "packetInfoTextBox";
-            this.packetInfoTextBox.Size = new System.Drawing.Size(823, 157);
+            this.packetInfoTextBox.Size = new System.Drawing.Size(643, 157);
             this.packetInfoTextBox.TabIndex = 6;
             this.packetInfoTextBox.Text = "";
             // 
@@ -221,7 +216,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(823, 434);
+            this.ClientSize = new System.Drawing.Size(695, 434);
             this.Controls.Add(this.packetInfoTextBox);
             this.Controls.Add(this.dataGridView);
             this.Controls.Add(this.statusStrip);
@@ -261,10 +256,9 @@
         private System.Windows.Forms.ToolStripButton btnStop;
         private System.Windows.Forms.StatusStrip statusStrip;
         private System.Windows.Forms.ToolStripStatusLabel toolStripCount;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripPacketsCount;
         private System.Windows.Forms.DataGridView dataGridView;
         private System.Windows.Forms.RichTextBox packetInfoTextBox;
+        private System.Windows.Forms.ToolStripStatusLabel labelPacketsCount;
     }
 }
 

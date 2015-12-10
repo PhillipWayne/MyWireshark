@@ -17,7 +17,7 @@ namespace GUI
         object DataBoundItem { get; }
         string PacketInfoTextBox { set; }
 
-        void SetPacketsCount(int count);
+        void SetPacketsCount(uint count);
         void SetDevices(CaptureDeviceList devices);
         void SetDataSource(BindingSource bs);
         void BeginInvoke(BindingSource bs, Queue<PacketWrapper> packetString);

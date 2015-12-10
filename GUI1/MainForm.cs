@@ -12,7 +12,7 @@ namespace GUI
 {
     public partial class MainForm : Form, IMainForm
     {
-        private int _selectedDevice;
+        private int _selectedDeviceIndex;
 
         public MainForm()
         {
@@ -37,8 +37,8 @@ namespace GUI
 
         public int SelectedDevice
         {
-            get { return _selectedDevice; }
-            set { _selectedDevice = value; }
+            get { return _selectedDeviceIndex; }
+            set { _selectedDeviceIndex = value; }
         }
 
         public int SelectedCellsCount
@@ -58,9 +58,9 @@ namespace GUI
         #endregion
 
         #region Methods
-        public void SetPacketsCount(int count)
+        public void SetPacketsCount(uint count)
         {
-            toolStripPacketsCount.Text = count.ToString();
+            labelPacketsCount.Text = count.ToString();
         }
 
         public void SetDevices(CaptureDeviceList devices)
@@ -94,7 +94,7 @@ namespace GUI
         {
             this.BeginInvoke(new MethodInvoker(delegate
             {
-                bs.DataSource = packetStrings.Reverse();
+                bs.DataSource = packetStrings;//.Reverse();
             }
             ));
         }
@@ -117,11 +117,15 @@ namespace GUI
 
         private void btnStart_Click(object sender, EventArgs e)
         {
+            btnStart.Enabled = false;
+            btnStop.Enabled = true;
             if (StartCaptureClick != null) StartCaptureClick(this, EventArgs.Empty);
         }
 
         private void btnStop_Click(object sender, EventArgs e)
         {
+            btnStart.Enabled = true;
+            btnStop.Enabled = false;
             if (StopCaptureClick != null) StopCaptureClick(this, EventArgs.Empty);
         }
 
