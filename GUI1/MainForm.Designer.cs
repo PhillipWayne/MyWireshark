@@ -34,9 +34,6 @@
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuFileQuit = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip = new System.Windows.Forms.ToolStrip();
             this.btnStart = new System.Windows.Forms.ToolStripButton();
             this.btnStop = new System.Windows.Forms.ToolStripButton();
@@ -56,9 +53,7 @@
             // menuMain
             // 
             this.menuMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem,
-            this.toolsToolStripMenuItem,
-            this.helpToolStripMenuItem});
+            this.fileToolStripMenuItem});
             this.menuMain.Location = new System.Drawing.Point(0, 0);
             this.menuMain.Name = "menuMain";
             this.menuMain.Size = new System.Drawing.Size(695, 24);
@@ -93,26 +88,6 @@
             this.menuFileQuit.Size = new System.Drawing.Size(121, 22);
             this.menuFileQuit.Text = "Quit";
             this.menuFileQuit.Click += new System.EventHandler(this.menuFileQuit_Click);
-            // 
-            // toolsToolStripMenuItem
-            // 
-            this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
-            this.toolsToolStripMenuItem.Text = "Tools";
-            // 
-            // helpToolStripMenuItem
-            // 
-            this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.aboutToolStripMenuItem});
-            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
-            this.helpToolStripMenuItem.Text = "Help";
-            // 
-            // aboutToolStripMenuItem
-            // 
-            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
-            this.aboutToolStripMenuItem.Text = "About";
             // 
             // toolStrip
             // 
@@ -246,11 +221,8 @@
         private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveAsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem menuFileQuit;
-        private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
         private System.Windows.Forms.ToolStrip toolStrip;
         private System.Windows.Forms.ToolStripButton btnStart;
-        private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox devicesList;
         private System.Windows.Forms.ToolStripButton btnStop;

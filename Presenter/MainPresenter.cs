@@ -67,6 +67,11 @@ namespace Presenter
         {
             try
             {
+                if (!_view.IsSelect)
+                {
+                    _messageService.ShowMessage("Choose the device");
+                    return;
+                }
                 StartCapture();
             }
             catch(Exception ex)
@@ -169,7 +174,6 @@ namespace Presenter
 
                 _backgroundThread.ThreadStop = true;
                 _backgroundThread.Join();
-
             }
         }
 
