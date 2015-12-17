@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="BackgroundThread.cs" />
     <Compile Include="FileManager.cs" />
+    <Compile Include="IFileManager.cs" />
     <Compile Include="PacketWrapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

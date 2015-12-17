@@ -198,7 +198,8 @@ namespace Presenter
 
                 if (shouldSleep)
                 {
-                    System.Threading.Thread.Sleep(250);
+                    System.Threading.Thread.Sleep(11250);
+                    //System.Threading.Thread.Sleep(250);
                 }
                 else
                 {
@@ -212,14 +213,14 @@ namespace Presenter
                     foreach (var packet in ourQueue)
                     {
                         var packetWrapper = new PacketWrapper(_packetCount, packet);
-
-                        _view.BeginInvoke(packetStrings, packetWrapper);
-
+                        bs.DataSource = packetStrings.Reverse();
+                        //_view.BeginInvoke(packetStrings, packetWrapper);
+                        packetStrings.Enqueue(packetWrapper);
                         _packetCount++;
                     }
 
-                    _view.BeginInvoke(bs, packetStrings);
-
+                    //_view.BeginInvoke(bs, packetStrings);
+                    bs.DataSource = packetStrings.Reverse();
                     if (statisticsUiNeedsUpdate)
                     {
                         UpdateCaptureStatistics();

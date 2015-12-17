@@ -93,21 +93,22 @@ namespace GUI
         public void BeginInvoke(BindingSource bs, Queue<PacketWrapper> packetStrings)
         {
             if (IsHandleCreated)
-            this.BeginInvoke(new MethodInvoker(delegate
-            {
-                bs.DataSource = packetStrings.Reverse();
-            }
-            ));
+                this.BeginInvoke(new MethodInvoker(delegate
+                {
+                    bs.DataSource = packetStrings.Reverse();
+                }
+                ));
         }
 
         public void BeginInvoke(Queue<PacketWrapper> packetStrings, PacketWrapper packetWrapper)
         {
             if (IsHandleCreated)
-            this.BeginInvoke(new MethodInvoker(delegate
-            {
-                packetStrings.Enqueue(packetWrapper);
-            }
-            ));
+                this.BeginInvoke(new MethodInvoker(delegate
+                {
+                    packetStrings.Enqueue(packetWrapper);
+                }
+                ));
+            
         }
         #endregion
 
