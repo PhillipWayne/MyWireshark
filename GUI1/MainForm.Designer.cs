@@ -34,6 +34,8 @@
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuFileQuit = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ARPResolveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip = new System.Windows.Forms.ToolStrip();
             this.btnStart = new System.Windows.Forms.ToolStripButton();
             this.btnStop = new System.Windows.Forms.ToolStripButton();
@@ -53,7 +55,8 @@
             // menuMain
             // 
             this.menuMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem});
+            this.fileToolStripMenuItem,
+            this.toolsToolStripMenuItem});
             this.menuMain.Location = new System.Drawing.Point(0, 0);
             this.menuMain.Name = "menuMain";
             this.menuMain.Size = new System.Drawing.Size(695, 24);
@@ -88,6 +91,21 @@
             this.menuFileQuit.Size = new System.Drawing.Size(121, 22);
             this.menuFileQuit.Text = "Quit";
             this.menuFileQuit.Click += new System.EventHandler(this.menuFileQuit_Click);
+            // 
+            // toolsToolStripMenuItem
+            // 
+            this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ARPResolveToolStripMenuItem});
+            this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(48, 20);
+            this.toolsToolStripMenuItem.Text = "Tools";
+            // 
+            // ARPResolveToolStripMenuItem
+            // 
+            this.ARPResolveToolStripMenuItem.Name = "ARPResolveToolStripMenuItem";
+            this.ARPResolveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.ARPResolveToolStripMenuItem.Text = "ARPResolve";
+            this.ARPResolveToolStripMenuItem.Click += new System.EventHandler(this.ARPResolveToolStripMenuItem_Click);
             // 
             // toolStrip
             // 
@@ -231,6 +249,8 @@
         private System.Windows.Forms.DataGridView dataGridView;
         private System.Windows.Forms.RichTextBox packetInfoTextBox;
         private System.Windows.Forms.ToolStripStatusLabel labelPacketsCount;
+        private System.Windows.Forms.ToolStripMenuItem toolsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ARPResolveToolStripMenuItem;
     }
 }
 

@@ -18,15 +18,36 @@ namespace Presenter
         private readonly IMessageService _messageService;
 
         private string _currentFilePath;
+        /// <summary>
+        /// Очередь, которая обратным вызовом потока записывает пакеты
+        /// Доступ в фоновом потоке когда QueueLock проводится/держится.
+        /// The queue that the callback thread puts packets in. Accessed by
+        /// the background thread when QueueLock is held
+        /// </summary>
         private List<RawCapture> _packetQueue = new List<RawCapture>();
         private CaptureDeviceList _devices;
         private ICaptureDevice _device;
         private int _packetCount;
 
         private BackgroundThread _backgroundThread;
- 
+
+        /// <summary>
+        /// Объект, который используется для предотвращения доступа двух потоков к PacketQueue
+        /// в одно и тоже время
+        /// Object that is used to prevent two threads from accessing
+        /// PacketQueue at the same time
+        /// </summary>
         private object QueueLock = new object();
+
+        /// <summary>
+        /// Время последнего вызова PcapDevice.Statistics() на активном адаптере
+        /// Позволяет периодически отображать статистику адаптера
+        /// </summary>
         private DateTime LastStatisticsOutput;
+
+        /// <summary>
+        /// Временной интервал между выводом статистики(PcapDevice.Statistics())
+        /// </summary>
         private TimeSpan LastStatisticsInterval = new TimeSpan(0, 0, 2);
 
         private PacketArrivalEventHandler arrivalEventHandler;
@@ -94,6 +115,8 @@ namespace Presenter
 
         private void _view_FormClosingClick(object sender, EventArgs e)
         {
+            _backgroundThread.Abort();
+            //_backgroundThread.IsBackground = true;
             Shutdown();
         }
 
@@ -117,24 +140,32 @@ namespace Presenter
             _view.SetDataSource(bs);
             LastStatisticsOutput = DateTime.Now;
 
+            // старт фонового потока
             _backgroundThread = new BackgroundThread(new Thread(BackgroundThreadFunc));
             _backgroundThread.ThreadStop = false;
             _backgroundThread.Start();
 
+            // настройка фонового захвата
             arrivalEventHandler = new PacketArrivalEventHandler(device_OnPacketArrival);
             _device.OnPacketArrival += arrivalEventHandler;
             captureStoppedEventHandler = new CaptureStoppedEventHandler(device_OnCaptureStopped);
             _device.OnCaptureStopped += captureStoppedEventHandler;
             _device.Open();
 
+            // начальное обновление статистики
             captureStatistics = _device.Statistics;
             UpdateCaptureStatistics();
 
+            // старт фонового захвата
             _device.StartCapture();
         }
 
+        /// <summary>
+        /// Событие прихода нового пакета
+        /// </summary>
         void device_OnPacketArrival(object sender, CaptureEventArgs e)
         {
+            // печать периодической статистики об этом устройстве
             var Now = DateTime.Now;
             var interval = Now - LastStatisticsOutput;
             if (interval > LastStatisticsInterval)
@@ -143,17 +174,26 @@ namespace Presenter
                 statisticsUiNeedsUpdate = true;
                 LastStatisticsOutput = Now;
             }
+
+            // lock QueueLock to prevent multiple threads accessing PacketQueue at
+            // the same time
             lock (QueueLock)
             {
                 _packetQueue.Add(e.Packet);
             }
         }
 
+        /// <summary>
+        /// Обновление статистики захвата
+        /// </summary>
         private void UpdateCaptureStatistics()
         {
             _view.SetPacketsCount(captureStatistics.ReceivedPackets);
         }
 
+        /// <summary>
+        /// Событие остановки захвата
+        /// </summary>
         void device_OnCaptureStopped(object sender, CaptureStoppedEventStatus status)
         {
             if (status != CaptureStoppedEventStatus.CompletedWithoutError)
@@ -172,8 +212,12 @@ namespace Presenter
                 _device.OnCaptureStopped -= captureStoppedEventHandler;
                 _device = null;
 
+                // задать фоновый поток для закрытия
+                // ask the background thread to shut down
                 _backgroundThread.ThreadStop = true;
-                _backgroundThread.Join();
+
+                // ждать прекращения фонового потока
+                //_backgroundThread.Join();
             }
         }
 
@@ -182,6 +226,15 @@ namespace Presenter
             Shutdown();
         }
 
+        /// <summary>
+        /// Checks for queued packets. If any exist it locks the QueueLock, saves a
+        /// reference of the current queue for itself, puts a new queue back into
+        /// place into PacketQueue and unlocks QueueLock. This is a minimal amount of
+        /// work done while the queue is locked.
+        ///
+        /// The background thread can then process queue that it saved without holding
+        /// the queue lock.
+        /// </summary>
         private void BackgroundThreadFunc()
         {
             while(!_backgroundThread.ThreadStop)
@@ -198,29 +251,36 @@ namespace Presenter
 
                 if (shouldSleep)
                 {
-                    System.Threading.Thread.Sleep(11250);
-                    //System.Threading.Thread.Sleep(250);
+                    System.Threading.Thread.Sleep(250);
                 }
-                else
+                else  // should process the queue
                 {
                     List<RawCapture> ourQueue;
                     lock (QueueLock)
                     {
+                        // swap queues, giving the capture callback a new one
                         ourQueue = _packetQueue;
                         _packetQueue = new List<RawCapture>();
                     }
 
                     foreach (var packet in ourQueue)
                     {
+                        // Here is where we can process our packets freely without
+                        // holding off packet capture.
+                        //
+                        // NOTE: If the incoming packet rate is greater than
+                        //       the packet processing rate these queues will grow
+                        //       to enormous sizes. Packets should be dropped in these
+                        //       cases
+
                         var packetWrapper = new PacketWrapper(_packetCount, packet);
-                        bs.DataSource = packetStrings.Reverse();
-                        //_view.BeginInvoke(packetStrings, packetWrapper);
-                        packetStrings.Enqueue(packetWrapper);
+                        
+                        _view.BeginInvoke(packetStrings, packetWrapper);
+
                         _packetCount++;
                     }
 
-                    //_view.BeginInvoke(bs, packetStrings);
-                    bs.DataSource = packetStrings.Reverse();
+                    _view.BeginInvoke(bs, packetStrings);
                     if (statisticsUiNeedsUpdate)
                     {
                         UpdateCaptureStatistics();

@@ -13,6 +13,7 @@ namespace GUI
     public partial class MainForm : Form, IMainForm
     {
         private int _selectedDeviceIndex;
+        private CaptureDeviceList _devices;
 
         public MainForm()
         {
@@ -65,7 +66,8 @@ namespace GUI
 
         public void SetDevices(CaptureDeviceList devices)
         {
-            foreach (ICaptureDevice dev in devices)
+            _devices = devices;
+            foreach (ICaptureDevice dev in _devices)
             {
                 if (dev is AirPcapDevice)
                 {
@@ -87,7 +89,10 @@ namespace GUI
 
         public void SetDataSource(BindingSource bs)
         {
+            var firstCell = dataGridView.FirstDisplayedCell;
             dataGridView.DataSource = bs;
+            //dataGridView.FirstDisplayedCell = dataGridView.Rows[dataGridView.Rows.Count - 1].Cells[0];
+            dataGridView.FirstDisplayedCell = firstCell;
         }
 
         public void BeginInvoke(BindingSource bs, Queue<PacketWrapper> packetStrings)
@@ -138,6 +143,7 @@ namespace GUI
         private void FormClosing_Click(object sender, EventArgs e)
         {
             if (FormClosingClick != null) FormClosingClick(this, EventArgs.Empty);
+            this.Close();
         }
 
         private void dataGrid_SelectionChanged(object sender, EventArgs e)
@@ -155,5 +161,13 @@ namespace GUI
             SelectedDevice = devicesList.SelectedIndex;
         }
         #endregion
+
+        private void ARPResolveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ICaptureDevice device = _devices[SelectedDevice];
+            ARPResolveForm arpForm = new ARPResolveForm(device as LibPcapLiveDevice);
+            arpForm.StartPosition = FormStartPosition.CenterScreen;
+            arpForm.ShowDialog();
+        }
     }
 }

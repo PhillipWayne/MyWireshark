@@ -13,3 +13,4 @@ C:\Users\OLEG\Documents\Visual Studio 2013\Projects\C#\MyWireshark\GUI1\bin\Debu
 C:\Users\OLEG\Documents\Visual Studio 2013\Projects\C#\MyWireshark\GUI1\bin\Debug\SharpPcap.xml
 C:\Users\OLEG\Documents\Visual Studio 2013\Projects\C#\MyWireshark\GUI1\bin\Debug\ClassLibrary.dll
 C:\Users\OLEG\Documents\Visual Studio 2013\Projects\C#\MyWireshark\GUI1\bin\Debug\ClassLibrary.pdb
+C:\Users\OLEG\Documents\Visual Studio 2013\Projects\C#\MyWireshark\GUI1\obj\Debug\GUI.ARPResolveForm.resources
