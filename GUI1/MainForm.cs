@@ -148,7 +148,6 @@ namespace GUI
         {
             SelectedDevice = devicesList.SelectedIndex;
         }
-        #endregion
 
         private void ARPResolveToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -157,5 +156,6 @@ namespace GUI
             arpForm.StartPosition = FormStartPosition.CenterScreen;
             arpForm.ShowDialog();
         }
+        #endregion
     }
 }

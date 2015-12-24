@@ -59,7 +59,7 @@
             this.toolsToolStripMenuItem});
             this.menuMain.Location = new System.Drawing.Point(0, 0);
             this.menuMain.Name = "menuMain";
-            this.menuMain.Size = new System.Drawing.Size(695, 24);
+            this.menuMain.Size = new System.Drawing.Size(796, 24);
             this.menuMain.TabIndex = 1;
             this.menuMain.Text = "menuStrip2";
             // 
@@ -116,7 +116,7 @@
             this.btnStop});
             this.toolStrip.Location = new System.Drawing.Point(0, 24);
             this.toolStrip.Name = "toolStrip";
-            this.toolStrip.Size = new System.Drawing.Size(695, 27);
+            this.toolStrip.Size = new System.Drawing.Size(796, 27);
             this.toolStrip.TabIndex = 2;
             this.toolStrip.Text = "toolStrip1";
             // 
@@ -159,7 +159,7 @@
             this.devicesList.Location = new System.Drawing.Point(162, 60);
             this.devicesList.MinimumSize = new System.Drawing.Size(50, 0);
             this.devicesList.Name = "devicesList";
-            this.devicesList.Size = new System.Drawing.Size(215, 21);
+            this.devicesList.Size = new System.Drawing.Size(316, 21);
             this.devicesList.TabIndex = 4;
             this.devicesList.SelectedIndexChanged += new System.EventHandler(this.devicesList_SelectedIndexChanged);
             // 
@@ -168,9 +168,9 @@
             this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripCount,
             this.labelPacketsCount});
-            this.statusStrip.Location = new System.Drawing.Point(0, 412);
+            this.statusStrip.Location = new System.Drawing.Point(0, 562);
             this.statusStrip.Name = "statusStrip";
-            this.statusStrip.Size = new System.Drawing.Size(695, 22);
+            this.statusStrip.Size = new System.Drawing.Size(796, 22);
             this.statusStrip.TabIndex = 5;
             this.statusStrip.Text = "statusStrip1";
             // 
@@ -197,7 +197,8 @@
             this.dataGridView.Location = new System.Drawing.Point(23, 87);
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.dataGridView.Size = new System.Drawing.Size(643, 159);
+            this.dataGridView.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridView.Size = new System.Drawing.Size(744, 159);
             this.dataGridView.TabIndex = 0;
             // 
             // packetInfoTextBox
@@ -206,7 +207,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.packetInfoTextBox.Location = new System.Drawing.Point(23, 252);
             this.packetInfoTextBox.Name = "packetInfoTextBox";
-            this.packetInfoTextBox.Size = new System.Drawing.Size(643, 157);
+            this.packetInfoTextBox.Size = new System.Drawing.Size(744, 307);
             this.packetInfoTextBox.TabIndex = 6;
             this.packetInfoTextBox.Text = "";
             // 
@@ -214,7 +215,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(695, 434);
+            this.ClientSize = new System.Drawing.Size(796, 584);
             this.Controls.Add(this.packetInfoTextBox);
             this.Controls.Add(this.dataGridView);
             this.Controls.Add(this.statusStrip);

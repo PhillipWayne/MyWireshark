@@ -22,7 +22,7 @@ namespace ClassLibrary
         }
 
         /// <summary>
-        /// С использованием стандартной Windows-кодировки
+        /// Получение содержимого с использованием стандартной Windows-кодировки
         /// </summary>
         /// <param name="filePath"></param>
         /// <returns></returns>
@@ -32,7 +32,7 @@ namespace ClassLibrary
         }
 
         /// <summary>
-        /// Открытие текстового файла, чтение всего файла
+        /// Чтение всего файла
         /// </summary>
         /// <param name="filePath"></param>
         /// <param name="encoding"></param>
@@ -43,13 +43,18 @@ namespace ClassLibrary
             return content;
         }
 
+        /// <summary>
+        /// Сохранение данных в файл с использованием стандартной кодировки
+        /// </summary>
+        /// <param name="content"></param>
+        /// <param name="filePath"></param>
         public void SaveContent(string content, string filePath)
         {
             SaveContent(content, filePath, _defaultEncoding);
         }
 
         /// <summary>
-        /// Сохранениие содержимого
+        /// Сохранениие данных в файл
         /// </summary>
         /// <param name="content"></param>
         /// <param name="filePath"></param>
@@ -57,17 +62,6 @@ namespace ClassLibrary
         public void SaveContent(string content, string filePath, Encoding encoding)
         {
             File.WriteAllText(filePath, content, encoding);
-        }
-
-        /// <summary>
-        /// Подсчет количества символов в содержимом
-        /// </summary>
-        /// <param name="content"></param>
-        /// <returns></returns>
-        public int GetSymbolCount(string content)
-        {
-            int count = content.Length;
-            return count;
         }
     }
 }

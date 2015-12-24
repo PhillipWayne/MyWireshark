@@ -17,19 +17,17 @@ namespace Presenter
         private readonly IFileManager _manager;
         private readonly IMessageService _messageService;
 
-        private string _currentFilePath;
         private List<RawCapture> _packetQueue = new List<RawCapture>();
         private CaptureDeviceList _devices;
         private ICaptureDevice _device;
         private int _packetCount;
 
-        private BackgroundThread _backgroundThread;
-
+        //private BackgroundThread _backgroundThread;
+        private Thread _backgroundThread;
+        private bool _backgroundThreadStop;
         /// <summary>
         /// Объект, который используется для предотвращения доступа двух потоков к PacketQueue
         /// в одно и тоже время
-        /// Object that is used to prevent two threads from accessing
-        /// PacketQueue at the same time
         /// </summary>
         private object QueueLock = new object();
 
@@ -140,9 +138,12 @@ namespace Presenter
             LastStatisticsOutput = DateTime.Now;
 
             // старт фонового потока
-            _backgroundThread = new BackgroundThread(new Thread(BackgroundThreadFunc));
-            _backgroundThread.ThreadStop = false;
+            _backgroundThread = new Thread(BackgroundThreadFunc);
+            _backgroundThreadStop = false;
             _backgroundThread.Start();
+            //_backgroundThread = new BackgroundThread(new Thread(BackgroundThreadFunc));
+            //_backgroundThread.ThreadStop = false;
+            //_backgroundThread.Start();
 
             // настройка фонового захвата
             arrivalEventHandler = new PacketArrivalEventHandler(device_OnPacketArrival);
@@ -213,7 +214,7 @@ namespace Presenter
 
                 // задать фоновый поток для закрытия
                 // ask the background thread to shut down
-                _backgroundThread.ThreadStop = true;
+                _backgroundThreadStop = true;
 
                 // ждать прекращения фонового потока
                 _backgroundThread.Join();
@@ -236,7 +237,7 @@ namespace Presenter
         /// </summary>
         private void BackgroundThreadFunc()
         {
-            while(!_backgroundThread.ThreadStop)
+            while(!_backgroundThreadStop)
             {
                 bool shouldSleep = true;
                 lock (QueueLock)
