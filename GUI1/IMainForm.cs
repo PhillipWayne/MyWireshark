@@ -21,7 +21,6 @@ namespace GUI
         void SetDevices(CaptureDeviceList devices);
         void SetDataSource(BindingSource bs);
         void BeginInvoke(BindingSource bs, Queue<PacketWrapper> packetString);
-        void BeginInvoke(Queue<PacketWrapper> packetStrings, PacketWrapper packetWrapper);
 
         event EventHandler StartCaptureClick;
         event EventHandler StopCaptureClick;

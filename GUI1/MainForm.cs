@@ -7,6 +7,7 @@ using SharpPcap.WinPcap;
 using ClassLibrary;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 
 namespace GUI
 {
@@ -14,15 +15,16 @@ namespace GUI
     {
         private int _selectedDeviceIndex;
         private CaptureDeviceList _devices;
-
+        
         public MainForm()
         {
             InitializeComponent();
 
             btnStart.Click += new EventHandler(btnStart_Click);
             btnStop.Click += new EventHandler(btnStop_Click);
-            this.FormClosingClick += new EventHandler(FormClosing_Click);
+            this.FormClosing += FormClosing_Click;
             dataGridView.SelectionChanged += new EventHandler(dataGrid_SelectionChanged);
+            
         }
 
         #region Properties
@@ -89,10 +91,7 @@ namespace GUI
 
         public void SetDataSource(BindingSource bs)
         {
-            var firstCell = dataGridView.FirstDisplayedCell;
             dataGridView.DataSource = bs;
-            //dataGridView.FirstDisplayedCell = dataGridView.Rows[dataGridView.Rows.Count - 1].Cells[0];
-            dataGridView.FirstDisplayedCell = firstCell;
         }
 
         public void BeginInvoke(BindingSource bs, Queue<PacketWrapper> packetStrings)
@@ -101,19 +100,9 @@ namespace GUI
                 this.BeginInvoke(new MethodInvoker(delegate
                 {
                     bs.DataSource = packetStrings.Reverse();
+                    bs.DataSource = packetStrings;
                 }
                 ));
-        }
-
-        public void BeginInvoke(Queue<PacketWrapper> packetStrings, PacketWrapper packetWrapper)
-        {
-            if (IsHandleCreated)
-                this.BeginInvoke(new MethodInvoker(delegate
-                {
-                    packetStrings.Enqueue(packetWrapper);
-                }
-                ));
-            
         }
         #endregion
 
@@ -143,7 +132,6 @@ namespace GUI
         private void FormClosing_Click(object sender, EventArgs e)
         {
             if (FormClosingClick != null) FormClosingClick(this, EventArgs.Empty);
-            this.Close();
         }
 
         private void dataGrid_SelectionChanged(object sender, EventArgs e)

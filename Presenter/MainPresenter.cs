@@ -18,12 +18,6 @@ namespace Presenter
         private readonly IMessageService _messageService;
 
         private string _currentFilePath;
-        /// <summary>
-        /// Очередь, которая обратным вызовом потока записывает пакеты
-        /// Доступ в фоновом потоке когда QueueLock проводится/держится.
-        /// The queue that the callback thread puts packets in. Accessed by
-        /// the background thread when QueueLock is held
-        /// </summary>
         private List<RawCapture> _packetQueue = new List<RawCapture>();
         private CaptureDeviceList _devices;
         private ICaptureDevice _device;
@@ -40,8 +34,8 @@ namespace Presenter
         private object QueueLock = new object();
 
         /// <summary>
-        /// Время последнего вызова PcapDevice.Statistics() на активном адаптере
-        /// Позволяет периодически отображать статистику адаптера
+        /// Время последнего вызова PcapDevice.Statistics() на активном устройстве
+        /// Позволяет периодически отображать статистику устройства
         /// </summary>
         private DateTime LastStatisticsOutput;
 
@@ -67,7 +61,7 @@ namespace Presenter
             _view.SetPacketsCount(0);
 
             GetDevices();
-
+            
             _view.StartCaptureClick += new EventHandler(_view_StartCaptureClick);
             _view.StopCaptureClick += new EventHandler(_view_StopCaptureClick);
             _view.FormClosingClick += new EventHandler(_view_FormClosingClick);
@@ -115,9 +109,14 @@ namespace Presenter
 
         private void _view_FormClosingClick(object sender, EventArgs e)
         {
-            _backgroundThread.Abort();
-            //_backgroundThread.IsBackground = true;
-            Shutdown();
+            try
+            {
+                StopCapture();
+            }
+            catch(Exception ex)
+            {
+                _messageService.ShowError(ex.Message);
+            }
         }
 
         private void GetDevices()
@@ -217,7 +216,7 @@ namespace Presenter
                 _backgroundThread.ThreadStop = true;
 
                 // ждать прекращения фонового потока
-                //_backgroundThread.Join();
+                _backgroundThread.Join();
             }
         }
 
@@ -240,7 +239,6 @@ namespace Presenter
             while(!_backgroundThread.ThreadStop)
             {
                 bool shouldSleep = true;
-
                 lock (QueueLock)
                 {
                     if (_packetQueue.Count != 0)
@@ -253,30 +251,20 @@ namespace Presenter
                 {
                     System.Threading.Thread.Sleep(250);
                 }
-                else  // should process the queue
+                else
                 {
                     List<RawCapture> ourQueue;
                     lock (QueueLock)
                     {
-                        // swap queues, giving the capture callback a new one
                         ourQueue = _packetQueue;
                         _packetQueue = new List<RawCapture>();
                     }
-
                     foreach (var packet in ourQueue)
                     {
-                        // Here is where we can process our packets freely without
-                        // holding off packet capture.
-                        //
-                        // NOTE: If the incoming packet rate is greater than
-                        //       the packet processing rate these queues will grow
-                        //       to enormous sizes. Packets should be dropped in these
-                        //       cases
-
+                        // Здесь мы можем обрабатывать пакеты свободно, не занимая перехватываемое устройство
+                        // Если приходящий пакет
                         var packetWrapper = new PacketWrapper(_packetCount, packet);
-                        
-                        _view.BeginInvoke(packetStrings, packetWrapper);
-
+                        packetStrings.Enqueue(packetWrapper);
                         _packetCount++;
                     }
 

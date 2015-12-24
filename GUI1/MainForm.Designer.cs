@@ -103,7 +103,7 @@
             // ARPResolveToolStripMenuItem
             // 
             this.ARPResolveToolStripMenuItem.Name = "ARPResolveToolStripMenuItem";
-            this.ARPResolveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.ARPResolveToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
             this.ARPResolveToolStripMenuItem.Text = "ARPResolve";
             this.ARPResolveToolStripMenuItem.Click += new System.EventHandler(this.ARPResolveToolStripMenuItem_Click);
             // 
@@ -189,8 +189,11 @@
             // 
             this.dataGridView.AllowUserToAddRows = false;
             this.dataGridView.AllowUserToDeleteRows = false;
+            this.dataGridView.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView.GridColor = System.Drawing.SystemColors.ControlLight;
             this.dataGridView.Location = new System.Drawing.Point(23, 87);
             this.dataGridView.Name = "dataGridView";
             this.dataGridView.RightToLeft = System.Windows.Forms.RightToLeft.No;
@@ -199,6 +202,8 @@
             // 
             // packetInfoTextBox
             // 
+            this.packetInfoTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.packetInfoTextBox.Location = new System.Drawing.Point(23, 252);
             this.packetInfoTextBox.Name = "packetInfoTextBox";
             this.packetInfoTextBox.Size = new System.Drawing.Size(643, 157);
