@@ -45,7 +45,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BackgroundThread.cs" />
     <Compile Include="FileManager.cs" />
     <Compile Include="IFileManager.cs" />
     <Compile Include="PacketWrapper.cs" />

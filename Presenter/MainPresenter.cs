@@ -22,7 +22,6 @@ namespace Presenter
         private ICaptureDevice _device;
         private int _packetCount;
 
-        //private BackgroundThread _backgroundThread;
         private Thread _backgroundThread;
         private bool _backgroundThreadStop;
         /// <summary>
@@ -141,9 +140,6 @@ namespace Presenter
             _backgroundThread = new Thread(BackgroundThreadFunc);
             _backgroundThreadStop = false;
             _backgroundThread.Start();
-            //_backgroundThread = new BackgroundThread(new Thread(BackgroundThreadFunc));
-            //_backgroundThread.ThreadStop = false;
-            //_backgroundThread.Start();
 
             // настройка фонового захвата
             arrivalEventHandler = new PacketArrivalEventHandler(device_OnPacketArrival);
