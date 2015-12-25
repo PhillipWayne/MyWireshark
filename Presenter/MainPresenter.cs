@@ -136,23 +136,19 @@ namespace Presenter
             _view.SetDataSource(bs);
             LastStatisticsOutput = DateTime.Now;
 
-            // старт фонового потока
             _backgroundThread = new Thread(BackgroundThreadFunc);
             _backgroundThreadStop = false;
             _backgroundThread.Start();
 
-            // настройка фонового захвата
             arrivalEventHandler = new PacketArrivalEventHandler(device_OnPacketArrival);
             _device.OnPacketArrival += arrivalEventHandler;
             captureStoppedEventHandler = new CaptureStoppedEventHandler(device_OnCaptureStopped);
             _device.OnCaptureStopped += captureStoppedEventHandler;
             _device.Open();
 
-            // начальное обновление статистики
             captureStatistics = _device.Statistics;
             UpdateCaptureStatistics();
 
-            // старт фонового захвата
             _device.StartCapture();
         }
 
@@ -161,7 +157,6 @@ namespace Presenter
         /// </summary>
         void device_OnPacketArrival(object sender, CaptureEventArgs e)
         {
-            // печать периодической статистики об этом устройстве
             var Now = DateTime.Now;
             var interval = Now - LastStatisticsOutput;
             if (interval > LastStatisticsInterval)
@@ -171,8 +166,6 @@ namespace Presenter
                 LastStatisticsOutput = Now;
             }
 
-            // lock QueueLock to prevent multiple threads accessing PacketQueue at
-            // the same time
             lock (QueueLock)
             {
                 _packetQueue.Add(e.Packet);
@@ -208,11 +201,8 @@ namespace Presenter
                 _device.OnCaptureStopped -= captureStoppedEventHandler;
                 _device = null;
 
-                // задать фоновый поток для закрытия
-                // ask the background thread to shut down
                 _backgroundThreadStop = true;
 
-                // ждать прекращения фонового потока
                 _backgroundThread.Join();
             }
         }
@@ -222,15 +212,6 @@ namespace Presenter
             Shutdown();
         }
 
-        /// <summary>
-        /// Checks for queued packets. If any exist it locks the QueueLock, saves a
-        /// reference of the current queue for itself, puts a new queue back into
-        /// place into PacketQueue and unlocks QueueLock. This is a minimal amount of
-        /// work done while the queue is locked.
-        ///
-        /// The background thread can then process queue that it saved without holding
-        /// the queue lock.
-        /// </summary>
         private void BackgroundThreadFunc()
         {
             while(!_backgroundThreadStop)
@@ -259,7 +240,6 @@ namespace Presenter
                     foreach (var packet in ourQueue)
                     {
                         // Здесь мы можем обрабатывать пакеты свободно, не занимая перехватываемое устройство
-                        // Если приходящий пакет
                         var packetWrapper = new PacketWrapper(_packetCount, packet);
                         packetStrings.Enqueue(packetWrapper);
                         _packetCount++;

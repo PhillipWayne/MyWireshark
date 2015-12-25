@@ -24,7 +24,6 @@ namespace GUI
             btnStop.Click += new EventHandler(btnStop_Click);
             this.FormClosing += FormClosing_Click;
             dataGridView.SelectionChanged += new EventHandler(dataGrid_SelectionChanged);
-            
         }
 
         #region Properties
